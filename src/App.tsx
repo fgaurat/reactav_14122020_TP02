@@ -1,33 +1,22 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import TodoList from './TodoList';
+import { Todo } from './core/Todo';
 
 function App() {
+  
+  const [todos,setTodos] =useState([])
+  
+  
+  useEffect(() => {
+    const url = process.env.REACT_APP_TODO_URL
+    fetch(url)
+      .then( response => response.json())
+      .then( data => setTodos(data))
 
-  const todos = [
-    {
-      "userId": 1,
-      "id": 5,
-      "title": "laboriosam mollitia et enim quasi adipisci quia provident illum",
-      "completed": false,
-      "dueDate": 1582620058000
-    },
-    {
-      "userId": 1,
-      "id": 6,
-      "title": "qui ullam ratione quibusdam voluptatem quia omnis",
-      "completed": false,
-      "dueDate": 1582620058000
-    },
-    {
-      "userId": 1,
-      "id": 7,
-      "title": "illo expedita consequatur quia in",
-      "completed": false,
-      "dueDate": 1582620058000
-    }
-  ]
+  }, [])
+
 
 
   return (
