@@ -9,7 +9,7 @@ export interface TodoListProps{
 
 export default function TodoList({todos}:TodoListProps){
     return (
-        <table>
+        <table className="table">
             {todos.map( (todo:Todo) => 
             <TodoRow todo={todo} key={todo.id}></TodoRow>
             )}
