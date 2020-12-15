@@ -8,7 +8,6 @@ function App() {
   
   const [todos,setTodos] =useState([])
   
-  
   useEffect(() => {
     const url = process.env.REACT_APP_TODO_URL
     fetch(url)
@@ -16,7 +15,6 @@ function App() {
       .then( data => setTodos(data))
 
   }, [])
-
 
 
   return (
