@@ -5,13 +5,26 @@ import TodoList from './TodoList';
 import { Todo } from './core/Todo';
 import HOCCompletedTodoList from './HOCCompletedTodoList/';
 import ShowCompleted from './ShowCompleted';
+import Concat from './Concat';
+import Counter from './Counter/Counter';
+import { TodoDAO } from './core/TodoDAO';
+
 let initTodos:any = []
+
+const todoDAO = new TodoDAO(process.env.REACT_APP_TODO_URL)
+
+export const TodoDAOContext = React.createContext(todoDAO)
+
+
 function App() {
+  
+  
+  const [showCompleted,setShowCompleted] =useState(false)
+  
+  
   
   const [todos,setTodos] =useState([])
 
-  const [showCompleted,setShowCompleted] =useState(false)
-  
   useEffect(() => {
     const url = process.env.REACT_APP_TODO_URL
     fetch(url)
@@ -29,18 +42,22 @@ function App() {
     const completedTodos = todos.filter((todo: Todo) => todo.completed === target.checked)
     if (target.checked) setTodos(completedTodos)
     else setTodos(initTodos)
-    console.log(initTodos)
     setShowCompleted(target.checked)
   }
 
   const CompletedTodoList = HOCCompletedTodoList(TodoList) 
   return (
     <div className="App">
+      <hr/>
+      <Counter/>
+      <hr/>
+      <Concat/>
+      <hr/>
       <ShowCompleted showCompleted={showCompleted} onShowCompleted = {onShowCompleted}/>
       <h2>TodoList</h2>
       <TodoList todos={todos} ></TodoList>
       <h2>CompletedTodoList</h2>
-      <CompletedTodoList todos={todos} ></CompletedTodoList>
+      {/* <CompletedTodoList todos={todos} ></CompletedTodoList> */}
     </div>
   );
 }
